@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\Request;
+
 
 class UserController extends Controller
 {
@@ -45,11 +47,35 @@ class UserController extends Controller
         return view('students', ['students' => $students]);
         
     }
+    
     public function index()
     {
     $users = User::all();
     return view('users', ['users' => $users]); 
+    }
+
+    public function addUser(Request $request)
+{
+    // Validate the form data
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|string|min:6',
+        'role' => 'required|in:project_member,examiner,supervisor,student',
+    ]);
+
+    // Create and save the new user
+    $user = new User();
+    $user->name = $validatedData['name'];
+    $user->email = $validatedData['email'];
+    $user->password = bcrypt($validatedData['password']); // Hash the password
+    $user->role = $validatedData['role'];
+    $user->save();
+
+    // Redirect back with a success message or handle the response as needed
+    return redirect()->back()->with('success', 'User added successfully!');
 }
+
 
 }
 

@@ -28,6 +28,81 @@
             background-color: #ddd;
             color: black;
         }
+        /* User card styles */
+        .user-card {
+            width: 30%; /* Adjust as needed */
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px;
+            box-sizing: border-box;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .user-card h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .user-info p {
+            margin: 0;
+            color: #666;
+        }
+       
+
+         /* Button styles */
+        .btn-container a, .btn-container button {
+            padding: 15px 105px;
+            margin: 10px 2px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+        .btn-container a:hover, .btn-container button:hover {
+            background-color: #485052;
+        }
+         /* Add user Button */
+         .add-user-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out; /* Add smooth transition */
+        }
+
+        /* Add hover effect */
+        .add-user-button:hover {
+            background-color: #485052;
+            transform: translateY(-5px); /* Move button up on hover */
+        }
+
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+        }
+        .popup h2 {
+            margin-top: 0;
+        }
+
     </style>
 </head>
 <body>
@@ -39,9 +114,10 @@
     </div>
 
     <!-- Content -->
-    <h1>User Management</h1>
-    <div>
-        
+    
+    <div class="btn-container">
+
+        <a href="{{ route('users') }}" class="btn">All Users</a>
         <button onclick="getProjectMembers()">Project Members</button>
         <button onclick="getExaminers()">Examiners</button>
         <button onclick="getSupervisors()">Supervisors</button>
@@ -52,11 +128,40 @@
             <!-- User list will be displayed here -->
             <ul>
                 @foreach ($users as $user)
-                    <li>{{ $user->name }} - {{ $user->email }} - {{ $user->role }}</li>
+                <div class="user-card">
+                    <h3>{{ $user->name }}<h3>
+                        <div class="user-info">
+                            <p>Email: {{ $user->email }}</p>
+                            <p>Role: {{ $user->role }}</p>
+                        </div>
+                    </div>
                 @endforeach
-            </ul>
+            
         
     </div>
+
+     <!-- Button to add users -->
+     <button class="add-user-button" onclick="togglePopup()">Add User</button>
+
+
+    <!-- Popup for adding users -->
+    <div id="addUserPopup" class="popup">
+    <h2>Add User</h2>
+    <form id="addUserForm" action="{{ route('addUser') }}" method="POST">
+        @csrf
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <select name="role" required>
+            <option value="project_member">Project Member</option>
+            <option value="examiner">Examiner</option>
+            <option value="supervisor">Supervisor</option>
+            <option value="student">Student</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
 
     <!-- Script for fetching user lists -->
     <script>
@@ -92,6 +197,15 @@
                 });
         }
         
+        // Function to toggle the popup
+        function togglePopup() {
+            var popup = document.getElementById('addUserPopup');
+            if (popup.style.display === "none") {
+                popup.style.display = "block";
+            } else {
+                popup.style.display = "none";
+            }
+        }
     </script>
 </body>
 </html>

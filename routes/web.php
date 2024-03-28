@@ -45,6 +45,10 @@ Route::middleware([
     Route::get('/admin/users/{role}', [UserController::class, 'getUserList']);
     Route::get('/admin/users', [UserController::class, 'index'])->name('users');
 
+    //add user
+    Route::post('/admin/add-user', [UserController::class, 'addUser'])->name('addUser');
+
+
 
 
 });
