@@ -51,10 +51,11 @@
         }
          /* Add user Button */
          .add-user-button {
+            font-size: 15px;
             position: fixed;
             bottom: 20px;
             right: 20px;
-            padding: 10px 20px;
+            padding: 15px 25px;
             background-color: #333;
             color: white;
             border: none;
@@ -85,10 +86,17 @@
         .popup h2 {
             margin-top: 0;
         }
-        .close-popup {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+        .closeadduser {
+            color: #020202;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .closeadduser:hover,
+        .closeadduser:focus {
+            color: #ad2525;
+            text-decoration: none;
             cursor: pointer;
         }
 
@@ -119,13 +127,54 @@
         .button[type="submit"]:hover {
             background-color: #485052;
         }
+
+        /*Popup styles*/
+        .alert alert-success {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .alert alert-success.ok-button {
+            display: block;
+            margin-top: 10px;
+            background-color: #0a1724;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .alert alert-success.ok-button:hover {
+            background-color: #0056b3;
+        }
+
+        .alert alert-success p {
+            margin: 0;
+        }
     </style>
 </head>
 <body>
     <!-- Navbar -->
     @include('navbar')
+
+    <!-- Display flashed success message as a popup -->
+    @if (session('success'))
+    <div class="alert alert-success" id="successPopup">
+       {{ session('success') }}
+       <button class="ok-button" onclick="closePopupSuccess()">OK</button>
+   </div>
+   @endif
+   
     <!-- Content -->
-    
     <div class="btn-container">
         <a href="{{ route('users') }}" class="btn">All Users</a>
         <button onclick="getProjectMembers()">Project Members</button>
@@ -154,8 +203,8 @@
 
     <!-- Popup for adding users -->
     <div id="addUserPopup" class="popup">
-        <span class="close-popup" onclick="togglePopup()">&times;</span>
-        <h2>Add User</h2>
+        <span class="closeadduser" onclick="togglePopup()">&times;</span>
+        <center><h2>Add User</h2></center>
         <form id="addUserForm" action="{{ route('addUser') }}" method="POST">
             @csrf
             <input type="text" name="name" placeholder="Name" required>
@@ -214,6 +263,18 @@
                 popup.style.display = "none";
             }
         }
+
+        // Function to close the popup
+            function closePopupSuccess() {
+              console.log("Closing success popup...");
+              var popup = document.getElementById('successPopup');
+           if (popup) {
+              console.log("Popup element found.");
+              popup.style.display = 'none';
+          } else {
+              console.log("Popup element not found.");
+          }
+         }
     </script>
 </body>
 </html>
