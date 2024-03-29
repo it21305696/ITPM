@@ -11,23 +11,6 @@
             background-color: #f4f4f4;
         }
        
-       /* Navbar styles */
-        .navbar {
-            background-color: #333;
-            overflow: hidden;
-        }
-        .navbar a {
-            float: left;
-            display: block;
-            color: #f2f2f2;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
-        }
         /* User card styles */
         .user-card {
             width: 30%; /* Adjust as needed */
@@ -102,21 +85,48 @@
         .popup h2 {
             margin-top: 0;
         }
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
 
+        /* Styles for form inputs and buttons */
+        input[type="text"],
+        textarea,
+        input[type="email"],
+        input[type="password"],
+        select,
+        .button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .button[type="submit"] {
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .button[type="submit"]:hover {
+            background-color: #485052;
+        }
     </style>
 </head>
 <body>
     <!-- Navbar -->
-    <div class="navbar">
-        <a href="{{ route('admin_home') }}">Home</a>
-        <a href="{{route('users')}}">Users</a>
-        <a href="#">Semesters</a>
-    </div>
-
+    @include('navbar')
     <!-- Content -->
     
     <div class="btn-container">
-
         <a href="{{ route('users') }}" class="btn">All Users</a>
         <button onclick="getProjectMembers()">Project Members</button>
         <button onclick="getExaminers()">Examiners</button>
@@ -125,43 +135,41 @@
     </div>
     <div id="user-list">
         <h1> All Users </h1>
-            <!-- User list will be displayed here -->
-            <ul>
-                @foreach ($users as $user)
+        <!-- User list will be displayed here -->
+        <ul>
+            @foreach ($users as $user)
                 <div class="user-card">
-                    <h3>{{ $user->name }}<h3>
-                        <div class="user-info">
-                            <p>Email: {{ $user->email }}</p>
-                            <p>Role: {{ $user->role }}</p>
-                        </div>
+                    <h3>{{ $user->name }}</h3>
+                    <div class="user-info">
+                        <p>Email: {{ $user->email }}</p>
+                        <p>Role: {{ $user->role }}</p>
                     </div>
-                @endforeach
-            
-        
+                </div>
+            @endforeach
+        </ul>
     </div>
 
-     <!-- Button to add users -->
-     <button class="add-user-button" onclick="togglePopup()">Add User</button>
-
+    <!-- Button to add users -->
+    <button class="add-user-button" onclick="togglePopup()">Add User</button>
 
     <!-- Popup for adding users -->
     <div id="addUserPopup" class="popup">
-    <h2>Add User</h2>
-    <form id="addUserForm" action="{{ route('addUser') }}" method="POST">
-        @csrf
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <select name="role" required>
-            <option value="project_member">Project Member</option>
-            <option value="examiner">Examiner</option>
-            <option value="supervisor">Supervisor</option>
-            <option value="student">Student</option>
-        </select>
-        <button type="submit">Submit</button>
-    </form>
-</div>
-
+        <span class="close-popup" onclick="togglePopup()">&times;</span>
+        <h2>Add User</h2>
+        <form id="addUserForm" action="{{ route('addUser') }}" method="POST">
+            @csrf
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <select name="role" required>
+                <option value="project_member">Project Member</option>
+                <option value="examiner">Examiner</option>
+                <option value="supervisor">Supervisor</option>
+                <option value="student">Student</option>
+            </select>
+            <button type="submit" class="button">Submit</button>
+        </form>
+    </div>
 
     <!-- Script for fetching user lists -->
     <script>
@@ -200,7 +208,7 @@
         // Function to toggle the popup
         function togglePopup() {
             var popup = document.getElementById('addUserPopup');
-            if (popup.style.display === "none") {
+            if (popup.style.display === "none" || popup.style.display === "") {
                 popup.style.display = "block";
             } else {
                 popup.style.display = "none";

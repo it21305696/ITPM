@@ -54,6 +54,7 @@ class UserController extends Controller
     return view('users', ['users' => $users]); 
     }
 
+
     public function addUser(Request $request)
 {
     // Validate the form data
@@ -73,8 +74,8 @@ class UserController extends Controller
     $user->save();
 
     // Redirect back with a success message or handle the response as needed
-    return redirect()->back()->with('success', 'User added successfully!');
-}
+    return redirect()->route('users')->with('success', 'User added successfully!');
+    }
 
 
 }

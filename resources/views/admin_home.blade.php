@@ -10,22 +10,7 @@
             padding: 0;
             background-color: #f4f4f4;
         }
-        .navbar {
-            background-color: #333;
-            overflow: hidden;
-        }
-        .navbar a {
-            float: left;
-            display: block;
-            color: #f2f2f2;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
-        }
+        
         .content {
             padding: 20px;
             position: relative; /* Ensure relative positioning for absolute positioning of the button */
@@ -51,7 +36,7 @@
         }
         .notice-card-footer a,
         .notice-card-footer button {
-            padding: 5px 10px;
+            padding: 10px 15px;
             border-radius: 4px;
             transition: background-color 0.3s, color 0.3s;
             text-decoration: none;
@@ -62,11 +47,11 @@
         }
         .notice-card-footer a:hover,
         .notice-card-footer button:hover {
-            background-color: #007bff;
+            background-color: #c20303;
             color: #fff;
         }
         .notice-card-footer button {
-            background-color: #dc3545;
+            background-color: #070202;
             color: #fff;
         }
         .icon {
@@ -78,8 +63,8 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
+            padding: 15px 25px;
+            background-color: #030404;
             color: white;
             border: none;
             border-radius: 4px;
@@ -90,9 +75,43 @@
         /* Add hover effect */
         .add-notice-button:hover {
             transform: translateY(-5px); /* Move button up on hover */
+            background-color: #2743aa;
         }
 
-        .modal1 {
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #3f3a3a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 4;
+            color:white;
+        }
+        .popup h2 {
+            margin-top: 0;
+        }
+        .close-popup {
+            color: #f2e6e6;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-popup:hover,
+        .close-popup:focus {
+            color: #ad2525;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        
+         /*edit modal*/
+         .modal1 {
             display: none;
             position: fixed;
             z-index: 1;
@@ -101,7 +120,7 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: #00000066;
             padding-top: 60px;
         }
 
@@ -113,9 +132,10 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 50%;
             max-width: 600px;
+            justify-content: center;
         }
         .close {
-            color: #aaa;
+            color: #020202;
             float: right;
             font-size: 28px;
             font-weight: bold;
@@ -123,13 +143,13 @@
 
         .close:hover,
         .close:focus {
-            color: black;
+            color: #ad2525;
             text-decoration: none;
             cursor: pointer;
         }
 
-        /* Style the form inputs and button */
-        input[type="text"],
+            /* Style the form inputs and button */
+            input[type="text"],
         textarea,
         input[type="date"],
         .button[type="submit"] {
@@ -143,27 +163,25 @@
         }
 
         .button1[type="submit"] {
-            background-color: #007bff;
+            background-color: #02172e;
             color: white;
             padding: 12px 20px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             float: right;
+            justify-content: center;
         }
 
-        .button2[type="submit"]:hover {
-            background-color: #0056b3;
+        .button1[type="submit"]:hover {
+            background-color: #3f4144;
+            
         }
     </style>
 </head>
 <body>
-    <!-- Navbar (same as before) -->
-    <div class="navbar">
-        <a href="{{ route('admin_home') }}">Home</a>
-        <a href="{{route('users')}}">Users</a>
-        <a href="#">Semesters</a>
-    </div>
+    <!-- Navbar -->
+    @include('navbar')
 
     <!-- Content -->
     <div class="content">
@@ -176,7 +194,7 @@
             @foreach ($notices as $notice)
                 <div class="notice-card">
                     <h3>{{ $notice->title }}</h3>
-                    <p>{{ $notice->description }}</p>
+                    <p><h4>{{ $notice->description }}</h4></p>
                     <p><strong>Release Date:</strong> {{ $notice->release_date }}</p>
                     <div class="notice-card-footer">
                        <!-- Edit button -->
@@ -198,13 +216,32 @@
     </div>
 
     <!-- Add Notice Button -->
-    <a href="{{ route('create_notice') }}" class="add-notice-button">Add Notice</a>
+    <button class="add-notice-button" onclick="togglePopup()">Add Notice</button>
+
+    <!-- Popup for create notice -->
+    <div id="createNoticePopup" class="popup">
+        <span class="close-popup" onclick="closePopup()">&times;</span>
+        <h2>New Notice</h2>
+        <form id="notice-form" action="{{ route('admin.notices.store') }}" method="POST">
+            @csrf
+            <label class="form-label" for="title">Title:</label>
+            <input class="form-input" type="text" id="title" name="title">
+    
+            <label class="form-label" for="description">Description:</label>
+            <textarea class="form-input" id="description" name="description"></textarea>
+    
+            <label class="form-label" for="release_date">Release Date:</label>
+            <input class="form-input" type="date" id="release_date" name="release_date">
+    
+            <button class="button1" type="submit">Create Notice</button>
+        </form>
+    </div>
 
     <!-- Edit Modal -->
     <div id="editModal" class="modal1" style="display: none;">
         <div class="modal-content1">
             <span class="close" onclick="closeEditModal()">&times;</span>
-            <h1>Edit Notice</h1>
+            <center><h1>Edit Notice</h1></center>
             <form id="editForm" method="POST">
                 @csrf
                 @method('PUT')
@@ -232,6 +269,22 @@
         // Function to close the edit modal
         function closeEditModal() {
             document.getElementById('editModal').style.display = 'none';
+        }
+
+        // Function to toggle the popup
+        function togglePopup() {
+            var popup = document.getElementById('createNoticePopup');
+            if (popup.style.display === "none" || popup.style.display === "") {
+                popup.style.display = "block";
+            } else {
+                popup.style.display = "none";
+            }
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            var popup = document.getElementById('createNoticePopup');
+            popup.style.display = "none";
         }
     </script>
     

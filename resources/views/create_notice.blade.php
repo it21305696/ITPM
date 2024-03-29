@@ -10,27 +10,6 @@
             background-color: #f4f4f4;
         }
 
-        .navbar {
-            background-color: #333;
-            overflow: hidden;
-            color: #f2f2f2;
-            padding: 10px 20px;
-        }
-
-        .navbar a {
-            float: left;
-            display: block;
-            color: #f2f2f2;
-            text-align: center;
-            text-decoration: none;
-            padding: 14px 20px;
-        }
-
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-
         h1 {
             text-align: center;
             margin-top: 20px;
@@ -63,7 +42,7 @@
         }
 
         .submit-button {
-            background-color: #007bff;
+            background-color: #051424;
             color: white;
             border: none;
             border-radius: 8px;
@@ -81,11 +60,7 @@
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <a href="#">Home</a>
-        <a href="#">Users</a>
-        <a href="#">Semesters</a>
-    </div>
+    @include('navbar')
 
     <h1>Create New Notice</h1>
 
