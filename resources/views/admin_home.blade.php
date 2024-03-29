@@ -60,6 +60,7 @@
 
         /* Add Notice Button */
         .add-notice-button {
+            font-size: 15px;
             position: fixed;
             bottom: 20px;
             right: 20px;
@@ -177,11 +178,56 @@
             background-color: #3f4144;
             
         }
+
+        /*Popup styles*/
+        .alert alert-success {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .alert alert-success.ok-button {
+            display: block;
+            margin-top: 10px;
+            background-color: #0a1724;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .alert alert-success.ok-button:hover {
+            background-color: #0056b3;
+        }
+
+        .alert alert-success p {
+            margin: 0;
+        }
+
     </style>
 </head>
 <body>
     <!-- Navbar -->
     @include('navbar')
+
+     <!-- Display flashed success message as a popup -->
+     @if (session('success'))
+     <div class="alert alert-success" id="successPopup">
+        {{ session('success') }}
+        <button class="ok-button" onclick="closePopupSuccess()">OK</button>
+    </div>
+    @endif
+
+    
+    
 
     <!-- Content -->
     <div class="content">
@@ -219,23 +265,24 @@
     <button class="add-notice-button" onclick="togglePopup()">Add Notice</button>
 
     <!-- Popup for create notice -->
-    <div id="createNoticePopup" class="popup">
-        <span class="close-popup" onclick="closePopup()">&times;</span>
-        <h2>New Notice</h2>
+<div id="createNoticePopup" class="popup">
+    <span class="close-popup" onclick="closePopup()">&times;</span>
+    <h2>New Notice</h2>
+    
         <form id="notice-form" action="{{ route('admin.notices.store') }}" method="POST">
-            @csrf
-            <label class="form-label" for="title">Title:</label>
-            <input class="form-input" type="text" id="title" name="title">
-    
-            <label class="form-label" for="description">Description:</label>
-            <textarea class="form-input" id="description" name="description"></textarea>
-    
-            <label class="form-label" for="release_date">Release Date:</label>
-            <input class="form-input" type="date" id="release_date" name="release_date">
-    
-            <button class="button1" type="submit">Create Notice</button>
-        </form>
+
+        @csrf
+        <label class="form-label" for="title">Title:</label>
+        <input class="form-input" type="text" id="title" name="title" required>
+        <label class="form-label" for="description">Description:</label>
+        <textarea class="form-input" id="description" name="description" required></textarea>
+        <label class="form-label" for="release_date">Release Date:</label>
+        <input class="form-input" type="date" id="release_date" name="release_date" required>
+
+        <button class="button1" type="submit">Create Notice</button>
+    </form>
     </div>
+
 
     <!-- Edit Modal -->
     <div id="editModal" class="modal1" style="display: none;">
@@ -253,7 +300,8 @@
                 <input type="date" id="editReleaseDate" name="release_date"><br><br>
                 <button class="button1" type="submit">Update Notice</button>
             </form>
-        </div>
+            
+            </div>
     </div>
 
     <script>
@@ -271,6 +319,7 @@
             document.getElementById('editModal').style.display = 'none';
         }
 
+        
         // Function to toggle the popup
         function togglePopup() {
             var popup = document.getElementById('createNoticePopup');
@@ -286,6 +335,21 @@
             var popup = document.getElementById('createNoticePopup');
             popup.style.display = "none";
         }
+       
+        
+        
+    // Function to close the popup
+    function closePopupSuccess() {
+        console.log("Closing success popup...");
+        var popup = document.getElementById('successPopup');
+        if (popup) {
+            console.log("Popup element found.");
+            popup.style.display = 'none';
+        } else {
+            console.log("Popup element not found.");
+        }
+    }
+
     </script>
     
 </body>
