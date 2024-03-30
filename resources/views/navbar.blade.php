@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Management</title>
+    <title>Navigation Bar</title>
     <style>
         /* Navbar styles */
         .navbar {
-            background-color: #333;
+            top: 0;
+            background-color: rgba(51, 51, 51, 0.8); /* Adjust the alpha value (last parameter) for transparency */
             overflow: hidden;
-            margin-bottom: 20px; /* Add margin to separate the navbar from the content */
+            margin-bottom: 20px;
+            width: 100%; /* Ensure the navbar spans the entire width of the page */
+            z-index: 1000;
+            border-bottom: 1px solid #333; /* Add a border to the bottom of the navbar */
         }
         .navbar a {
             float: left;
             display: block;
             color: #f2f2f2;
             text-align: center;
-            padding: 14px 20px;
+            padding: 30px 30px;
             text-decoration: none;
         }
         .navbar a:hover {

@@ -15,6 +15,7 @@
             padding: 20px;
             position: relative; /* Ensure relative positioning for absolute positioning of the button */
             margin-bottom: 100px; /* Add margin to prevent button overlap */
+            
         }
         .notice-card {
             background-color: #fff;
@@ -65,7 +66,7 @@
             bottom: 20px;
             right: 20px;
             padding: 15px 25px;
-            background-color: #030404;
+            background-color: rgba(59, 60, 60, 0.8);
             color: white;
             border: none;
             border-radius: 4px;
@@ -76,7 +77,7 @@
         /* Add hover effect */
         .add-notice-button:hover {
             transform: translateY(-5px); /* Move button up on hover */
-            background-color: #2743aa;
+            background-color: #020204;
         }
 
         /* Popup styles */
@@ -90,7 +91,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 4;
+            z-index: 9;
             color:white;
         }
         .popup h2 {
@@ -179,7 +180,7 @@
             
         }
 
-        /*Popup styles*/
+        /*Popup styles for success*/
         .alert alert-success {
             display: none;
             position: fixed;
@@ -190,7 +191,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
+            z-index: 1500;
         }
 
         .alert alert-success.ok-button {

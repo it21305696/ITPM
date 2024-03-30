@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>User Management</title>
+    
     <style>
         /* Add your custom CSS styles here */
         body {
@@ -36,7 +37,7 @@
          /* Button styles */
         .btn-container a, .btn-container button {
             padding: 15px 105px;
-            margin: 10px 2px;
+            margin: 25px 2px;
             border: none;
             border-radius: 5px;
             background-color: #333;
@@ -56,7 +57,7 @@
             bottom: 20px;
             right: 20px;
             padding: 15px 25px;
-            background-color: #333;
+            background-color: rgb(51, 51, 51, 0.7);
             color: white;
             border: none;
             border-radius: 4px;
@@ -66,7 +67,7 @@
 
         /* Add hover effect */
         .add-user-button:hover {
-            background-color: #485052;
+            background-color: #1a1b1c;
             transform: translateY(-5px); /* Move button up on hover */
         }
 
@@ -77,10 +78,11 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            background-color: #fff;
+            background-color: #464444;
+            color:white; 
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px #0000001a;
             z-index: 9999;
         }
         .popup h2 {
@@ -121,11 +123,12 @@
             color: white;
             border: none;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 20px; /* Adjust the border radius to make the edges curved */
+            padding: 10px 20px; /* Adjust the padding to make the button shorter */
         }
 
         .button[type="submit"]:hover {
-            background-color: #485052;
+            background-color: #111212;
         }
 
         /*Popup styles*/
@@ -165,6 +168,8 @@
 <body>
     <!-- Navbar -->
     @include('navbar')
+
+    
 
     <!-- Display flashed success message as a popup -->
     @if (session('success'))
