@@ -37,16 +37,7 @@
         button:hover {
             background-color: #0056b3;
         }
-        .alert {
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-        }
-        .alert-success {
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-            color: #155724;
-        }
+        
     </style>
 </head>
 <body>
@@ -54,17 +45,10 @@
 <!-- Navbar -->
 @include('navbar')
 
-<h2>Assign Project Task</h2>
-
-@if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
 
 <form method="POST" action="{{ route('assignTask') }}">
     @csrf
-
+    <center><h2>Assign Project Memebers</h2></center>
     <div class="form-group">
         <label for="project_member_id">Select Project Member:</label>
         <select name="project_member_id" id="project_member_id" required>
@@ -104,7 +88,7 @@
 
     <div class="form-group">
         <label for="task_description">Task Description:</label>
-        <textarea name="task_description" id="task_description" rows="4" required></textarea>
+        <textarea name="task_description" id="task_description" rows="2" required></textarea>
     </div>
 
     <button type="submit">Assign Task</button>

@@ -49,9 +49,11 @@ Route::middleware([
     //add user
     Route::post('/admin/add-user', [UserController::class, 'addUser'])->name('addUser');
 
-    //assign member form
-    Route::get('/assign-project', [MemberAssignController::class, 'showAssignmentForm'])->name('memberassign_form');
-    Route::post('/assign-task', [MemberAssignController::class, 'assignTask'])->name('assignTask');
+    //assign members
+    Route::get('/admin/assign-project', [MemberAssignController::class, 'showAssignmentForm'])->name('memberassign_form');
+    Route::post('/admin/assign-task', [MemberAssignController::class, 'assignTask'])->name('assignTask');
+    Route::get('/admin/assigned-tasks', [MemberAssignController::class, 'viewAssignedTasks'])->name('assigned_tasks');
+    Route::delete('/admin/tasks/{task}', [MemberAssignController::class, 'destroy'])->name('admin_task.destroy');
 
 
 

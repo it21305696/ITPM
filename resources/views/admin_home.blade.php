@@ -180,56 +180,56 @@
             
         }
 
-        /*Popup styles for success*/
-        .alert alert-success {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 1500;
+        .alert {
+            position: relative;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
         }
 
-        .alert alert-success.ok-button {
-            display: block;
-            margin-top: 10px;
-            background-color: #0a1724;
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
+        .close-btn {
+            padding: 5px 10px;
+            border: 1px solid #c3e6cb;
+            border-radius: 3px;
+            background-color: #c3e6cb;
+            color: #364739;
+            position: absolute;
+            top: 5px;
+            right: 10px;
             cursor: pointer;
         }
 
-        .alert alert-success.ok-button:hover {
-            background-color: #0056b3;
+        .close-btn:hover {
+            background-color: #d43024;
         }
-
-        .alert alert-success p {
-            margin: 0;
-        }
-
     </style>
 </head>
 <body>
+    
     <!-- Navbar -->
     @include('navbar')
 
-     <!-- Display flashed success message as a popup -->
-     @if (session('success'))
-     <div class="alert alert-success" id="successPopup">
+    <!-- Display success message if exists -->
+    @if (session('success'))
+    <div class="alert" id="successAlert">
         {{ session('success') }}
-        <button class="ok-button" onclick="closePopupSuccess()">OK</button>
+        <span class="close-btn" onclick="closeAlert('successAlert')">Close</span>
     </div>
     @endif
 
+    <script>
+        // Function to close the alert
+        function closeAlert(alertId) {
+            var alertElement = document.getElementById(alertId);
+            if (alertElement) {
+                alertElement.style.display = 'none'; // Hide the alert
+            }
+        }
+    </script>
     
-    
-
     <!-- Content -->
     <div class="content">
         <h1>Welcome, Admin!</h1>
@@ -248,7 +248,7 @@
                         <button onclick="openEditModal('{{ $notice->title }}', '{{ $notice->description }}', '{{ $notice->release_date }}', '{{ $notice->id }}')">
                             <span class="icon">&#9998;</span>Edit
                         </button>
-                        <!-- Delete form (same as before) -->
+                        <!-- Delete form -->
                         <form action="{{ route('admin.notices.destroy', $notice->id) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
@@ -337,19 +337,6 @@
             popup.style.display = "none";
         }
        
-        
-        
-    // Function to close the popup
-    function closePopupSuccess() {
-        console.log("Closing success popup...");
-        var popup = document.getElementById('successPopup');
-        if (popup) {
-            console.log("Popup element found.");
-            popup.style.display = 'none';
-        } else {
-            console.log("Popup element not found.");
-        }
-    }
 
     </script>
     

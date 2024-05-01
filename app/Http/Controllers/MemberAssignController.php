@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Task; 
+use App\Models\Task;
 
 class MemberAssignController extends Controller
 {
@@ -36,7 +36,27 @@ class MemberAssignController extends Controller
         $task->description = $request->input('task_description');
         $task->save();
 
-        // Redirect back to the assignment form with success message
-        return redirect()->route('memberassign_form')->with('success', 'Task assigned successfully!');
+        // Redirect to assigned_tasks view
+        return redirect()->route('assigned_tasks')->with('success', 'Task assigned successfully!');
+    }
+
+    public function viewAssignedTasks()
+    {
+        // Retrieve assigned tasks (update this query based on your Task model and relationships)
+        $assignedTasks = Task::all();
+
+        // Render the assigned_tasks view and pass assigned tasks data
+        return view('assigned_tasks', [
+            'assignedTasks' => $assignedTasks
+        ]);
+    }
+
+    public function destroy(Task $task)
+    {
+        // Delete the notice
+        $task->delete();
+
+        // Redirect back to admin home page with success message
+        return redirect()->route('assigned_tasks')->with('success', 'Notice deleted successfully!');
     }
 }
