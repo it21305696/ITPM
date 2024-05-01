@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MemberAssignController;
 
 // Existing routes for the welcome page and dashboard
 Route::get('/', function () {
@@ -48,7 +49,13 @@ Route::middleware([
     //add user
     Route::post('/admin/add-user', [UserController::class, 'addUser'])->name('addUser');
 
+    //assign member form
+    Route::get('/assign-project', [MemberAssignController::class, 'showAssignmentForm'])->name('memberassign_form');
+    Route::post('/assign-task', [MemberAssignController::class, 'assignTask'])->name('assignTask');
 
 
 
 });
+
+
+
