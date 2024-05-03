@@ -1,98 +1,107 @@
 <!DOCTYPE html>
 <html>
-<head>
-        
+<head>   
     <title>Assign Project Task</title>
     <style>
-        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
         form {
             max-width: 600px;
-            margin: 0 auto;
+            margin: 20px auto;
             padding: 20px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
+            border-radius: 8px;
+            background-color: #d4cfcf;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
+
         label {
             font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
         }
-        select, textarea {
+
+        select, textarea, input[type="text"], input[type="date"], button {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
         }
+
         button {
-            padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #181c20;
             color: #fff;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
         }
+
         button:hover {
-            background-color: #0056b3;
+            background-color: #4b739e;
         }
-        
     </style>
 </head>
 <body>
+    <!-- Navbar -->
+    @include('navbar')
 
-<!-- Navbar -->
-@include('navbar')
+    <form method="POST" action="{{ route('assignTask') }}">
+        @csrf
+        <h2 style="text-align: center;">Assign Project Members</h2>
+        <div class="form-group">
+            <label for="project_member_id">Select Project Member:</label>
+            <select name="project_member_id" id="project_member_id" required>
+                <option value="">Select Project Member</option>
+                @foreach ($projectMembers as $member)
+                    <option value="{{ $member->id }}">{{ $member->name }}</option>
+                @endforeach
+            </select>
+        </div>
 
+        <div class="form-group">
+            <label for="task_type">Task Type:</label>
+            <select name="task_type" id="task_type" required>
+                <option value="">Select Task Type</option>
+                <option value="marking_rubric">Marking Rubric</option>
+                <option value="schedule">Presentation Schedule</option>
+            </select>
+        </div>
 
-<form method="POST" action="{{ route('assignTask') }}">
-    @csrf
-    <center><h2>Assign Project Memebers</h2></center>
-    <div class="form-group">
-        <label for="project_member_id">Select Project Member:</label>
-        <select name="project_member_id" id="project_member_id" required>
-            <option value="">Select Project Member</option>
-            @foreach ($projectMembers as $member)
-                <option value="{{ $member->id }}">{{ $member->name }}</option>
-            @endforeach
-        </select>
-    </div>
+        <div class="form-group">
+            <label for="doc_type">Document Type:</label>
+            <select name="doc_type" id="doc_type" required>
+                <option value="">Select Document Type</option>
+                <option value="Proposal">Proposal Presentation</option>
+                <option value="Progress1">Progress 1 Presentation</option>
+                <option value="Progress2">Progress 2 Presentation</option>
+                <option value="Final">Final Presentation</option>
+                <option value="Topicassessmentform">Topic Assessment Form Report</option>
+                <option value="Projectcharter">Project Charter Report</option>
+                <option value="Statusdocument1">Status Document 1 Report</option>
+                <option value="Logbook">Log Book Report</option>
+                <option value="Proposaldocument">Proposal Document Report</option>
+                <option value="Statusdocument2">Status Document 2 Report</option>
+                <option value="FinalThesis">Final Thesis Report</option>
+            </select>
+        </div>
 
-    <div class="form-group">
-        <label for="task_type">Task Type:</label>
-        <select name="task_type" id="task_type" required>
-            <option value="">Select Task Type</option>
-            <option value="marking_rubric">Marking Rubric</option>
-            <option value="schedule">Presentation Schedule</option>
-        </select>
-    </div>
+        <div class="form-group">
+            <label for="task_description">Task Description:</label>
+            <textarea name="task_description" id="task_description" rows="2" required></textarea>
+        </div>
 
-    <div class="form-group">
-        <label for="doc_type">Document Type:</label>
-        <select name="doc_type" id="doc_type" required>
-            <option value="">Select Document Type</option>
-            <option value="Proposal">Proposal Presentation</option>
-            <option value="Progress1">Progress 1 Presentation</option>
-            <option value="Progress2">Progress 2 Presentation</option>
-            <option value="Final">Final Presentation</option>
-            <option value="Topicassessmentform">Topic assessment form Report</option>
-            <option value="Projectcharter">Project charter Report</option>
-            <option value="Statusdocument1">Status document 1 Report</option>
-            <option value="Logbook">Log book Report</option>
-            <option value="Proposaldocument">Proposaldocument Report</option>
-            <option value="Statusdocument2">Status document 2 Report</option>
-            <option value="FinalThesis">Final Thesis Report</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="task_description">Task Description:</label>
-        <textarea name="task_description" id="task_description" rows="2" required></textarea>
-    </div>
-
-    <button type="submit">Assign Task</button>
-</form>
-
+        <button type="submit">Assign Task</button>
+    </form>
 </body>
 </html>

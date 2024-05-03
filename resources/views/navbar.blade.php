@@ -77,7 +77,7 @@
                 <a href="#">Semester 2</a>
             </div>
         </div>
-        <a href="{{ route('memberassign_form') }}">Tasks</a>
+        <a href="{{ route('assigned_tasks') }}">Tasks</a>
     </div>
 </nav>
 
