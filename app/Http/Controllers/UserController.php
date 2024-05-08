@@ -78,6 +78,15 @@ class UserController extends Controller
     return redirect()->route('users')->with('success', 'User added successfully!');
     }
 
+    public function destroy(User $user)
+    {
+        // Delete user
+        $user->delete();
+
+        // Redirect back to admin home page with success message
+        return redirect()->route('users')->with('success', 'User deleted successfully!');
+    }
+
 
 }
 

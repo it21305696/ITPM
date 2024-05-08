@@ -51,6 +51,9 @@ Route::middleware([
     //add user
     Route::post('/admin/add-user', [UserController::class, 'addUser'])->name('addUser');
 
+    //delete user
+    Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('deleteUser.destroy');
+
     //assign members
     Route::get('/admin/assign-project', [MemberAssignController::class, 'showAssignmentForm'])->name('memberassign_form');
     Route::post('/admin/assign-task', [MemberAssignController::class, 'assignTask'])->name('assignTask');

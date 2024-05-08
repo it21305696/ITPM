@@ -55,7 +55,7 @@
             font-size: 15px;
             position: fixed;
             bottom: 20px;
-            right: 20px;
+            right: 10px;
             padding: 15px 25px;
             background-color: rgb(51, 51, 51, 0.7);
             color: white;
@@ -70,7 +70,7 @@
             background-color: #1a1b1c;
             transform: translateY(-5px); /* Move button up on hover */
         }
-
+      
         /* Popup styles */
         .popup {
             display: none;
@@ -156,6 +156,25 @@
         .close-btn:hover {
             background-color: #d43024;
         }
+        
+        /*delete button*/
+        .deletebtn {
+            font-size: 15px;
+            margin-left: 320px;
+            padding: 5px 10px;
+            background-color: rgb(51, 51, 51, 0.7);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Delete hover effect */
+        .deletebtn:hover {
+            background-color: #ee2038;
+            color: black;
+        }
+
     </style>
 </head>
 <body>
@@ -170,7 +189,7 @@
         <span class="close-btn" onclick="closeAlert('successAlert')">Close</span>
     </div>
     @endif
-
+    
     <script>
         // Function to close the alert
         function closeAlert(alertId) {
@@ -180,7 +199,8 @@
             }
         }
     </script>
-   
+
+    
     <!-- Content -->
     <div class="btn-container">
         <a href="{{ route('users') }}" class="btn">All Users</a>
@@ -200,10 +220,20 @@
                         <p>Email: {{ $user->email }}</p>
                         <p>Role: {{ $user->role }}</p>
                     </div>
+                    <!-- Delete form -->
+                    <form action="{{ route('deleteUser.destroy', $user->id) }}" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button class="deletebtn" type="submit" onclick="return confirm('Are you sure you want to delete this user?')">
+                            <span class="icon">&#128465;</span>Delete
+                        </button>
+                    </form>
                 </div>
             @endforeach
         </ul>
     </div>
+
+    
 
     <!-- Button to add users -->
     <button class="add-user-button" onclick="togglePopup()">Add User</button>
@@ -271,6 +301,7 @@
             }
         }
 
+        
         
     </script>
 </body>
