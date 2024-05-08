@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Navigation Bar</title>
+    <title>Home</title>
     <style>
         /* Navbar styles */
         .navbar {
@@ -62,34 +62,13 @@
         .dropdownnav:hover .dropdownnav-content {
             display: block;
         }
-
-        .logout-btn {
-            float: right; /* Align the button to the right */
-            margin-top: 15px; /* Optional: Add top margin for spacing */
-        }
-
-        .logout-btn a {
-            font-size: 14px;
-            color: #f4f4f9;
-            background-color: #5d5de4;
-            text-align: center;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px; /* Optional: Add border-radius for rounded corners */
-        }
-
-        .logout-btn a:hover {
-            background-color: #3b3bae; /* Optional: Change color on hover */
-        }
-        
     </style>
-</head>
+ </head>
 <body>
-
     <nav class="navbar">
         <div class="container">
-            <a href="{{ route('admin_home') }}">Home</a>
-            <a href="{{ route('users') }}">Users</a>
+            <a href="#">Home</a>
+            <a href="#">Library</a>
             <div class="dropdownnav">
                 <button class="dropbtn">Semesters</button>
                 <div class="dropdownnav-content">
@@ -97,20 +76,13 @@
                     <a href="#">Semester 2</a>
                 </div>
             </div>
-            <a href="{{ route('assigned_tasks') }}">Tasks</a>
-    
-            <!-- Logout Button -->
-            <div class="logout-btn">
-                <a href="{{ route('logout') }}"
-                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    Logout
-                </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </div>
+            <a href="#">Tasks</a>
         </div>
     </nav>
 
-</body>
-</html>
+    <div class="login">
+    <a href="{{ route('login') }}">Login</a> 
+    </div>
+    
+    </body>
+    </html>

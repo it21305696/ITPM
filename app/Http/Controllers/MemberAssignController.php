@@ -45,9 +45,13 @@ class MemberAssignController extends Controller
         // Retrieve assigned tasks (update this query based on your Task model and relationships)
         $assignedTasks = Task::all();
 
-        // Render the assigned_tasks view and pass assigned tasks data
+        // Fetch project members who have the role of "project member"
+        $projectMembers = User::where('role', 'project_member')->get();
+
+        // Render the assigned_tasks view and pass assigned tasks and project members data
         return view('assigned_tasks', [
-            'assignedTasks' => $assignedTasks
+            'assignedTasks' => $assignedTasks,
+            'projectMembers' => $projectMembers
         ]);
     }
 

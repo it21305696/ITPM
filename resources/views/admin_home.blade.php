@@ -205,12 +205,15 @@
         .close-btn:hover {
             background-color: #d43024;
         }
+        
     </style>
 </head>
 <body>
     
     <!-- Navbar -->
     @include('navbar')
+
+    
 
     <!-- Display success message if exists -->
     @if (session('success'))

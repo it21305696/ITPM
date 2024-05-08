@@ -8,25 +8,17 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\MemberAssignController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\SupervisorController;
+use App\Http\Controllers\MemberController;
 
 // Existing routes for the welcome page and dashboard
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return view ('mainhome'); 
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+
+    Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     // Routes for managing notices
     Route::get('/admin/notices', [AdminController::class, 'index'])->name('admin_home');
@@ -61,28 +53,20 @@ Route::middleware([
     Route::delete('/admin/tasks/{task}', [MemberAssignController::class, 'destroy'])->name('admin_task.destroy');
 
 
-/*
-    // Show login form
-        Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+       
+    
+    // Login Routes
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
+    // Logout Route
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    // Handle login form submission
-        Route::post('/login', [LoginController::class, 'login']);
-
-    // Handle logout
-        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-         
-
-        Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-            // Other authenticated routes...
-        
-            // Supervisor Dashboard Route
-            Route::get('/supervisor/dashboard', [SupervisorController::class, 'dashboard'])->name('supervisor_dashboard');
-        });
-    */    
+    Route::get('/supervisor-home', [SupervisorController::class, 'index'])->name('suphome');
+    Route::get('/member-home', [MemberController::class, 'index'])->name('memberhome');
+    
 
 
-});
+
 
 
 

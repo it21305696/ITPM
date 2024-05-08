@@ -3,12 +3,7 @@
 <head>   
     <title>Assign Project Task</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
+        
 
         form {
             max-width: 600px;
@@ -53,8 +48,7 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    @include('navbar')
+    
 
     <form method="POST" action="{{ route('assignTask') }}">
         @csrf

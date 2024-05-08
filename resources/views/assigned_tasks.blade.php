@@ -3,49 +3,81 @@
 <head>
     <title>Assigned Tasks</title>
     <style>
-        /* Shared Styles for Navbar and Content */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-        }     
-        .container {
-            max-width: 800px;
-            
-            padding: 20px;
         }
-        
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: flex;
+            justify-content: space-between;
+            position: relative; /* Add relative positioning */
+        }
+
+        .task-list {
+            width: 50%;
+            padding-right: 20px; /* Add right padding for spacing */
+        }
+
+        .assign-form {
+            width: 45%;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: absolute;
+            top: 80px; /* Adjust top position */
+            right: -40px; /* Align to the right */
+        }
+
         .card {
             border: 1px solid #ddd;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             transition: box-shadow 0.3s ease-in-out;
             margin-bottom: 20px;
+            width: 100%;
         }
-        
+
         .card:hover {
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-        
+
         .card-body {
             padding: 20px;
         }
-        
+
         .card-title {
             font-size: 1.2rem;
             margin-bottom: 10px;
         }
-        
+
         .card-text {
             color: #333;
             margin-bottom: 15px;
         }
-        
-        .row {
-            margin-top: 20px;
+
+        /* Task Delete Button Styles */
+        .taskdeletebtn {
+            color: #dddddd;
+            background-color: #201b1b;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-        
+
+        .taskdeletebtn:hover {
+            color: #fbf7f7;
+            background-color: #d43024;
+            transform: translateY(-5px); /* Move button up on hover */
+        }
+
         /* Alert Styles */
         .alert {
             position: relative;
@@ -56,7 +88,7 @@
             border-color: #c3e6cb;
             color: #155724;
         }
-        
+
         .close-btn {
             padding: 5px 10px;
             border: 1px solid #c3e6cb;
@@ -68,16 +100,16 @@
             right: 10px;
             cursor: pointer;
         }
-        
+
         .close-btn:hover {
             background-color: #d43024;
         }
     </style>
 </head>
 <body>
-    
+
     <!-- Navbar -->
-        @include('navbar')
+    @include('navbar')
 
     <!-- Display success message if exists -->
     @if (session('success'))
@@ -96,14 +128,14 @@
             }
         }
     </script>
-    
+
     <!-- Content -->
     <div class="container mt-4">
-        <h2>Assigned Tasks</h2>
-
-        <div class="row mt-4">
-            @foreach ($assignedTasks as $task)
-            <div class="col-md-4 mb-4">
+        <!-- Left Column: Assigned Tasks -->
+        <div class="task-list">
+            <h2>Assigned Tasks</h2>
+            <div class="row mt-4">
+                @foreach ($assignedTasks as $task)
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ $task->user->name }}</h5>
@@ -111,18 +143,24 @@
                         <p class="card-text"><strong>Document Type:</strong> {{ ucfirst($task->doc_type) }}</p>
                         <p class="card-text"><strong>Description:</strong> {{ $task->description }}</p>
                         <!-- Delete form -->
-                        <form action="{{ route('admin_task.destroy', $task->id) }}" method="POST" style="position: relative;">
+                        <form action="{{ route('admin_task.destroy', $task->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" onclick="return confirm('Are you sure you want to delete this notice?')" style="position: absolute; top: 10px; right: 10px;">
+                            <button class="taskdeletebtn" type="submit" onclick="return confirm('Are you sure you want to delete this task?')">
                                 <span class="icon">&#128465;</span>Delete
                             </button>
                         </form>
                     </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
+        </div>
+
+        <!-- Right Column: Assignment Form -->
+        <div class="assign-form">
+            @include('memberassign_form')
         </div>
     </div>
+
 </body>
 </html>
