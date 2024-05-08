@@ -6,6 +6,8 @@ use Inertia\Inertia;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MemberAssignController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\SupervisorController;
 
 // Existing routes for the welcome page and dashboard
 Route::get('/', function () {
@@ -55,6 +57,26 @@ Route::middleware([
     Route::get('/admin/assigned-tasks', [MemberAssignController::class, 'viewAssignedTasks'])->name('assigned_tasks');
     Route::delete('/admin/tasks/{task}', [MemberAssignController::class, 'destroy'])->name('admin_task.destroy');
 
+
+/*
+    // Show login form
+        Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+
+    // Handle login form submission
+        Route::post('/login', [LoginController::class, 'login']);
+
+    // Handle logout
+        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+         
+
+        Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+            // Other authenticated routes...
+        
+            // Supervisor Dashboard Route
+            Route::get('/supervisor/dashboard', [SupervisorController::class, 'dashboard'])->name('supervisor_dashboard');
+        });
+    */    
 
 
 });
