@@ -12,9 +12,7 @@
 
         .container {
             max-width: 1200px;
-            margin: 20px auto;
-            display: flex;
-            justify-content: space-between;
+            margin: 5px auto;
             position: relative; /* Add relative positioning */
         }
 
@@ -65,7 +63,7 @@
         /* Task Delete Button Styles */
         .taskdeletebtn {
             color: #dddddd;
-            background-color: #201b1b;
+            background-color: #d23030;
             padding: 5px 10px;
             border-radius: 5px;
             cursor: pointer;
@@ -74,7 +72,7 @@
 
         .taskdeletebtn:hover {
             color: #fbf7f7;
-            background-color: #d43024;
+            background-color: #c20303;
             transform: translateY(-5px); /* Move button up on hover */
         }
 
@@ -104,6 +102,16 @@
         .close-btn:hover {
             background-color: #d43024;
         }
+        .report-btn a{
+            border-radius: 6px;
+            padding: 5px 5px;
+            margin-bottom: 10px;
+            margin-left: 1050px;
+            background-color: #2eda81;
+            color: white;
+            font-size: 14px;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -131,6 +139,9 @@
 
     <!-- Content -->
     <div class="container mt-4">
+        <div class="report-btn">
+            <a href="{{ route('tasksreport') }}" class="btn btn-primary" target="_blank">Generate Report</a>
+            </div>
         <!-- Left Column: Assigned Tasks -->
         <div class="task-list">
             <h2>Assigned Tasks</h2>
@@ -155,6 +166,7 @@
                 @endforeach
             </div>
         </div>
+
 
         <!-- Right Column: Assignment Form -->
         <div class="assign-form">

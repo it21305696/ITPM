@@ -34,7 +34,7 @@
         }
 
         button {
-            background-color: #181c20;
+            background-color: #020204;
             color: #fff;
             border: none;
             border-radius: 4px;
@@ -43,7 +43,7 @@
         }
 
         button:hover {
-            background-color: #4b739e;
+            background-color: #134a96;
         }
     </style>
 </head>
@@ -77,16 +77,16 @@
             <select name="doc_type" id="doc_type" required>
                 <option value="">Select Document Type</option>
                 <option value="Proposal">Proposal Presentation</option>
-                <option value="Progress1">Progress 1 Presentation</option>
-                <option value="Progress2">Progress 2 Presentation</option>
+                <option value="Progress 1">Progress 1 Presentation</option>
+                <option value="Progress 2">Progress 2 Presentation</option>
                 <option value="Final">Final Presentation</option>
-                <option value="Topicassessmentform">Topic Assessment Form Report</option>
-                <option value="Projectcharter">Project Charter Report</option>
-                <option value="Statusdocument1">Status Document 1 Report</option>
+                <option value="Topicassessment form">Topic Assessment Form Report</option>
+                <option value="Project charter">Project Charter Report</option>
+                <option value="Status document 1">Status Document 1 Report</option>
                 <option value="Logbook">Log Book Report</option>
-                <option value="Proposaldocument">Proposal Document Report</option>
-                <option value="Statusdocument2">Status Document 2 Report</option>
-                <option value="FinalThesis">Final Thesis Report</option>
+                <option value="Proposal document">Proposal Document Report</option>
+                <option value="Status document 2">Status Document 2 Report</option>
+                <option value="Final Thesis">Final Thesis Report</option>
             </select>
         </div>
 

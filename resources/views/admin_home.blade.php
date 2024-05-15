@@ -31,12 +31,13 @@
             margin-bottom: 0;
             color: #666;
         }
-        .notice-card-footer {
+        .edit-btn {
             margin-top: 10px;
             text-align: right;
         }
-        .notice-card-footer a,
-        .notice-card-footer button {
+        .edit-btn a,
+        .edit-btn button {
+            margin-right: 90px;
             padding: 10px 15px;
             border-radius: 4px;
             transition: background-color 0.3s, color 0.3s;
@@ -46,18 +47,46 @@
             display: inline-flex;
             align-items: center;
         }
-        .notice-card-footer a:hover,
-        .notice-card-footer button:hover {
-            background-color: #c20303;
+        .edit-btn button {
+            background-color: #2592db;
             color: #fff;
         }
-        .notice-card-footer button {
-            background-color: #070202;
+        .edit-btn a:hover,
+        .edit-btn button:hover {
+            background-color: #134a96;
             color: #fff;
+            transform: translateY(-5px);
         }
         .icon {
             margin-right: 5px;
         }
+
+        .delete-btn {
+            margin-top: -38.5px;
+            text-align: right;
+        }
+        .delete-btn a,
+        .delete-btn button {
+            padding: 10px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .delete-btn button {
+            background-color: #d23030;
+            color: #fff;
+        }
+        .delete-btn a:hover,
+        .delete-btn button:hover {
+            background-color: #c20303;
+            color: #fff;
+            transform: translateY(-5px);
+        }
+
 
         /* Add Notice Button */
         .add-notice-button {
@@ -66,7 +95,7 @@
             bottom: 20px;
             right: 20px;
             padding: 15px 25px;
-            background-color: rgba(59, 60, 60, 0.8);
+            background-color: #3b3c3ccc;
             color: white;
             border: none;
             border-radius: 4px;
@@ -246,11 +275,13 @@
                     <h3>{{ $notice->title }}</h3>
                     <p><h4>{{ $notice->description }}</h4></p>
                     <p><strong>Release Date:</strong> {{ $notice->release_date }}</p>
-                    <div class="notice-card-footer">
+                    <div class="edit-btn">
                        <!-- Edit button -->
                         <button onclick="openEditModal('{{ $notice->title }}', '{{ $notice->description }}', '{{ $notice->release_date }}', '{{ $notice->id }}')">
                             <span class="icon">&#9998;</span>Edit
                         </button>
+                    </div>
+                    <div class="delete-btn">
                         <!-- Delete form -->
                         <form action="{{ route('admin.notices.destroy', $notice->id) }}" method="POST" style="display: inline;">
                             @csrf
@@ -259,7 +290,7 @@
                                 <span class="icon">&#128465;</span>Delete
                             </button>
                         </form>
-                    </div>
+                    </div>                    
                 </div>
             @endforeach
         @endif

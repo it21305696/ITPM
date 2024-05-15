@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Task;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Illuminate\Support\Facades\View;
+
 
 class MemberAssignController extends Controller
 {
@@ -24,7 +28,7 @@ class MemberAssignController extends Controller
         $request->validate([
             'project_member_id' => 'required|exists:users,id',
             'task_type' => 'required|in:marking_rubric,schedule',
-            'doc_type' => 'required|in:Proposal,Progress1,Progress2,Final,Topicassessmentform,Projectcharter,Statusdocument1,Logbook,Proposaldocument,Statusdocument2,Finalthesis',
+            'doc_type' => 'required|in:Proposal,Progress 1,Progress 2,Final,Topic assessment form,Project charter,Status document 1,Logbook,Proposal document,Status document 2,Final thesis',
             'task_description' => 'required|string'
         ]);
 
@@ -63,4 +67,36 @@ class MemberAssignController extends Controller
         // Redirect back to admin home page with success message
         return redirect()->route('assigned_tasks')->with('success', 'Notice deleted successfully!');
     }
+
+    public function generateReport()
+    {
+        // Retrieve assigned tasks with user details
+        $assignedTasks = Task::with('user')->get();
+
+        // Generate PDF view
+        $pdf = $this->createPDFView('tasksreport', ['assignedTasks' => $assignedTasks]);
+
+        // Output the PDF to the browser for download
+        return $pdf->stream('assigned_tasks_report.pdf');
+    }
+
+    private function createPDFView($view, $data)
+    {
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+
+        $dompdf = new Dompdf($options);
+        $html = View::make($view, $data)->render();
+        $dompdf->loadHtml($html);
+
+        // (Optional) Set paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        return $dompdf;
+    }
 }
+
+

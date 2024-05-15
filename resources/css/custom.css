@@ -1,0 +1,140 @@
+/* Custom CSS */
+/* Add your custom styles here */
+
+body {
+    font-family: Arial, sans-serif;
+}
+.jumbotron {
+    background-color: #17568d;
+    background-size: cover;
+    color: #fff;
+    text-align: center;
+    padding: 100px 0;
+}
+.feature {
+    padding: 50px 0;
+    text-align: center;
+}
+.feature img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+.footer {
+    border: black;
+    background-color: #343a40;
+    color: #fff;
+}
+.footer.container{
+    background-color: black;
+}
+
+/* Custom CSS for cards */
+.card {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-height: 200px; /* Make cards smaller */
+    width: 30%; /* Adjust as needed */
+
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ced4da;
+    padding: 10px 20px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.card-subtitle {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #6c757d;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-text {
+    margin-bottom: 10px;
+}
+
+/* Custom CSS for buttons */
+.btn-primary,
+.btn-secondary,
+.btn-success,
+.btn-danger,
+.btn-warning,
+.btn-info,
+.btn-light,
+.btn-dark,
+.btn-outline-primary,
+.btn-outline-secondary,
+.btn-outline-success,
+.btn-outline-danger,
+.btn-outline-warning,
+.btn-outline-info,
+.btn-outline-light,
+.btn-outline-dark {
+    font-weight: 400;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-primary:disabled {
+    background-color: #007bff;
+    border-color: #007bff;
+    opacity: 0.65;
+}
+
+/* Custom CSS for forms */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-lg,
+.btn-group-lg > .btn {
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: 0.3rem;
+}

@@ -5,7 +5,7 @@
     <style>
         /* Navbar styles */
         .navbar {
-            background-color: rgba(19, 19, 19, 0.8); /* Adjust the alpha value (last parameter) for transparency */
+            background-color: #000000; /* Adjust the alpha value (last parameter) for transparency */
             overflow: hidden;
             margin-bottom: 20px;
             width: 100%; /* Ensure the navbar spans the entire width of the page */
@@ -63,6 +63,9 @@
             display: block;
         }
 
+        
+
+        /* Logout Button */
         .logout-btn {
             float: right; /* Align the button to the right */
             margin-top: 15px; /* Optional: Add top margin for spacing */
@@ -76,10 +79,12 @@
             padding: 10px 20px;
             text-decoration: none;
             border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+            transition: background-color 0.3s, color 0.3s; /* Add transition for smoother hover effect */
         }
 
         .logout-btn a:hover {
-            background-color: #3b3bae; /* Optional: Change color on hover */
+            background-color: #3b3bae; /* Change background color on hover */
+            color: white; /* Change text color on hover */
         }
         
     </style>
@@ -93,7 +98,7 @@
             <div class="dropdownnav">
                 <button class="dropbtn">Semesters</button>
                 <div class="dropdownnav-content">
-                    <a href="#">Semester 1</a>
+                    <a href="{{route('Marks.sem1')}}">Semester 1</a>
                     <a href="#">Semester 2</a>
                 </div>
             </div>

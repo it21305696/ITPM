@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 
 
@@ -87,7 +90,36 @@ class UserController extends Controller
         return redirect()->route('users')->with('success', 'User deleted successfully!');
     }
 
+    public function generateReport()
+    {
+        // Retrieve all users
+        $users = User::all();
 
+        // Load the "report" view with users data
+        $pdf = $this->createPDFView('report', compact('users'));
+
+        // Generate PDF file
+        $pdf->stream('users_report.pdf');
+    }
+
+    private function createPDFView($view, $data)
+    {
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+
+        $dompdf = new Dompdf($options);
+        $html = View::make($view, $data)->render();
+        $dompdf->loadHtml($html);
+
+        // (Optional) Set paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render PDF (important for PDF generation to work)
+        $dompdf->render();
+
+        return $dompdf;
+    }
+ 
 }
 
 

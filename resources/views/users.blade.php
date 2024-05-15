@@ -40,7 +40,7 @@
             margin: 25px 2px;
             border: none;
             border-radius: 5px;
-            background-color: #333;
+            background-color: #000000;
             color: white;
             font-size: 16px;
             cursor: pointer;
@@ -162,7 +162,7 @@
             font-size: 15px;
             margin-left: 320px;
             padding: 5px 10px;
-            background-color: rgb(51, 51, 51, 0.7);
+            background-color: #d23030;
             color: white;
             border: none;
             border-radius: 4px;
@@ -171,8 +171,19 @@
 
         /* Delete hover effect */
         .deletebtn:hover {
-            background-color: #ee2038;
-            color: black;
+            background-color: #c20303;
+            transform: translateY(-5px);
+            color:white;
+        }
+
+        .report-btn a{
+            border-radius: 6px;
+            padding: 5px 5px;
+            margin-left: 1350px;
+            background-color: #2eda81;
+            color: white;
+            font-size: 14px;
+            text-decoration: none;
         }
 
     </style>
@@ -209,6 +220,11 @@
         <button onclick="getSupervisors()">Supervisors</button>
         <button onclick="getStudents()">Students</button>
     </div>
+
+    <div class="report-btn">
+    <a href="{{ route('report') }}" class="btn" target="_blank">Generate Report</a>
+    </div>
+
     <div id="user-list">
         <h1> All Users </h1>
         <!-- User list will be displayed here -->
